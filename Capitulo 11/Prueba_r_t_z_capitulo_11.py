@@ -95,3 +95,4 @@ if __name__ == "__main__":
     correlacion(b1,sxx,syy)
     pruebaT_correlacion_rho0(0.05, len(x), r1)
     prueba_z_para_rho(rho, 0.05, r1, len(x))
+    

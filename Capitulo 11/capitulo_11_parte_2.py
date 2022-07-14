@@ -70,20 +70,26 @@ def prueba_z_para_rho(rho,alfa,r1,df):
     print(f'El valor de z para la prueba fue: {prueba}')
     print(a)
     
-    
-x=np.array([0.414,0.383,0.399,0.402,0.442,0.422,0.466,0.500,0.514,
-            0.530,0.569,0.558,0.577,0.572,0.548,0.581,0.557,0.550,
-            0.531,0.550,0.556,0.523,0.602,0.569,0.544,0.557,0.530,
-            0.547,0.585])
-y=np.array([29186,29266,26215,30162,38867,37831,44576,46097,59698,
-            67705,66088,78468,89869,77369,67095,85156,69571,84160,
-            73466,78610,67657,74017,87291,86836,82540,81699,82096,
-            75657,80490])
+def datos():
+    'Esta esta funcion devuelve los datos de x y, por lo cual se debe usar'
+    'como x,y=datos()'
+    print('Introducimos los datos, se separan los datos unicamente por un espacio')
+    y=np.array(list(map(float, input('''Elementos variable dependiente: 
+''').strip().split())))
+    x=np.array(list(map(float, input('''Elementos variable independiente: 
+''').strip().split())))
+    return(x,y)
 
 
-sxx,syy,sxy,ss=varianzasS(x,y)
-b0,b1=regresionLineal(x,y)
-r1=r(b1,sxx,syy)
-correlacion(b1,sxx,syy)
-pruebaT_correlacion_rho0(0.05, 29, r1)
-prueba_z_para_rho(0.9, 0.05, r1, 29)
+if __name__ == "__main__":
+    print('Dado un conjunto de datos, se hallara el valor de r que nos indica el porcentaje',
+          ' de correlación entre X y Y, para despues realizar una prueba tipo t',
+          ' para ver que probabilidad hay de que rho = 0, y finalmente una para ver',
+          'que probabilidad de que rho = 0.9')
+    x,y=datos()
+    sxx,syy,sxy,ss=varianzasS(x,y)
+    b0,b1=regresionLineal(x,y)
+    r1=r(b1,sxx,syy)
+    correlacion(b1,sxx,syy)
+    pruebaT_correlacion_rho0(0.05, 29, r1)
+    prueba_z_para_rho(0.9, 0.05, r1, 29)

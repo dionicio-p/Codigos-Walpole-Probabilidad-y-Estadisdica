@@ -42,9 +42,9 @@ def pruebaT_correlacion_rho0(alfa,df,r):
     t=round(t,3)
     prueba=(r*np.sqrt(df-2))/np.sqrt(1-r**2)
     prueba=round(prueba,3)
-    if t > -prueba:
+    if prueba < -t:
         a='Hipotesis rechaza, \u03C1 != 0 '
-    elif t < prueba:
+    elif prueba > t:
         a='Hipotesis rechaza, \u03C1 != 0 '
     else:
         a='No existe evidencia concreta para rechazar la hipotesis nula'
@@ -85,11 +85,13 @@ if __name__ == "__main__":
     print('Dado un conjunto de datos, se hallara el valor de r que nos indica el porcentaje',
           ' de correlación entre X y Y, para despues realizar una prueba tipo t',
           ' para ver que probabilidad hay de que rho = 0, y finalmente una para ver',
-          'que probabilidad de que rho = 0.9')
+          'que probabilidad de que rho = alfa')
+    
     x,y=datos()
+    rho=float(input('valor de alfa para la segunda prueba: '))
     sxx,syy,sxy,ss=varianzasS(x,y)
     b0,b1=regresionLineal(x,y)
     r1=r(b1,sxx,syy)
     correlacion(b1,sxx,syy)
-    pruebaT_correlacion_rho0(0.05, 29, r1)
-    prueba_z_para_rho(0.9, 0.05, r1, 29)
+    pruebaT_correlacion_rho0(0.05, len(x), r1)
+    prueba_z_para_rho(rho, 0.05, r1, len(x))
